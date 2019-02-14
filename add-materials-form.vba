@@ -7,30 +7,28 @@ Private Sub btnCskins_Click()
 [lblQuantity].Visible = True
 [txtQuantity].Visible = True
 [btnUpdate].Visible = True
-
 whatsClicked = "Cskins"
 
-
 End Sub
+
 
 '-----------------------------------------------------
 Private Sub btnDivingboards_Click()
 
-
 [lblQuantity].Visible = True
 [txtQuantity].Visible = True
 [btnUpdate].Visible = True
-
 whatsClicked = "divingboards"
 
 End Sub
 
+
+'-----------------------------------------------------
 Private Sub btnG4skins_Click()
 
 [lblQuantity].Visible = True
 [txtQuantity].Visible = True
 [btnUpdate].Visible = True
-
 whatsClicked = "G4skins"
 
 End Sub
@@ -76,6 +74,8 @@ DoCmd.OpenForm "APP-START"
 
 End Sub
 
+        
+'-----------------------------------------------------
 Private Sub Command30_Click()
 Dim MailStr As String
 ' Not Used
