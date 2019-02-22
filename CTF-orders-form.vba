@@ -1,5 +1,6 @@
 Option Compare Database
 
+'-------------------------------------------------
 Private Sub btnChangeStatus_Click()
 Dim txtCustomer As Variant
 Dim SQL As String
@@ -15,6 +16,8 @@ Dim rsStock As DAO.Recordset
             
 End Sub
 
+
+'-------------------------------------------------
 Private Sub btnClose_Click()
 ' Hide the finished Orders Query and re-open the Open Orders
 
@@ -28,9 +31,10 @@ Private Sub btnClose_Click()
 [txtboxName].Visible = False
 [txtStatus].Visible = False
 
-
 End Sub
 
+
+'-------------------------------------------------
 Private Sub btnHome_Click()
 
 [lblName].Visible = False
@@ -43,6 +47,8 @@ DoCmd.OpenForm "APP-START"
 
 End Sub
 
+
+'-------------------------------------------------
 Private Sub btnNewUpdate_Click()
 
 Dim SQL As String
@@ -79,10 +85,10 @@ Else
        MsgBox " & name_str & " & vbNewLine & "Click Yes to Continue", vbYesNo + vbQuestion, "Customer Not Found"
 
 End If
-
-
 End Sub
 
+                        
+'-------------------------------------------------                        
 Private Sub Command21_Click()
 
 ' may be easier to open up a differnet form
@@ -91,6 +97,8 @@ DoCmd.OpenForm "Add_CTF_Order"
 
 End Sub
 
+                        
+'-------------------------------------------------                        
 Private Sub Command3_Click()
 
 [CTF_open_orders_Query_subform].Visible = False
@@ -105,6 +113,8 @@ Private Sub Command3_Click()
 
 End Sub
 
+                        
+'-------------------------------------------------                        
 Private Sub Form_Load()
 ' when the form is open, ALL ORDERS QUERY will be hidden
 
