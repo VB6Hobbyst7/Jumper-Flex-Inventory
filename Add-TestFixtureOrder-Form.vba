@@ -50,7 +50,6 @@ MsgBox "The flex length is: " + txt_flexlength
 Form.Refresh
 
 ' count if there are any flexes returned by the query
-' somewhat works but if there is nothing there -- it'll just return null
 flexes_in_stock = DSum("Quantity", "checkFlexesAfterOrder_Query")
 
 ' if the the quantity value is 0, display a MsgBox
