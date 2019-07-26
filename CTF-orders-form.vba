@@ -12,7 +12,7 @@ whatsClicked = "change-notes"
 [lblName].Visible = True
 [lblNewNotes].Visible = True
 [btnNewUpdate].Visible = True
-
+[btnOpenFolder].Visible = False
 
 End Sub
 
@@ -31,10 +31,12 @@ whatsClicked = "change-status"
 [btnNewUpdate].Visible = True
 [txtboxName].Visible = True
 [txtStatus].Visible = True
+[lblNewNotes].Visible = False
 [btnNewElementOrder].Visible = False
 [btnNewFixtureOrder].Visible = False
 [arrowImg].Visible = False
 [btnChangeOrderNotes].Visible = False
+[btnOpenFolder].Visible = False
 
             
             
@@ -56,6 +58,18 @@ Private Sub btnClose_Click()
 [btnNewFixtureOrder].Visible = False
 [arrowImg].Visible = False
 [btnChangeOrderNotes].Visible = True
+[btnOpenFolder].Visible = False
+
+
+End Sub
+
+Private Sub btnCustomerFolder_Click()
+' open up the customer folders in 'sales and marketing'
+Dim Customer As String
+
+[lblName].Visible = True
+[txtboxName].Visible = True
+[btnOpenFolder].Visible = True
 
 
 End Sub
@@ -71,6 +85,8 @@ Private Sub btnHome_Click()
 [btnNewFixtureOrder].Visible = False
 [arrowImg].Visible = False
 [txtNewNotes].Visible = False
+[btnOpenFolder].Visible = False
+
 DoCmd.Close
 DoCmd.OpenForm "Home Page"
 
@@ -80,6 +96,7 @@ Private Sub btnNewElementOrder_Click()
 
 DoCmd.Close
 DoCmd.OpenForm "Add_Element_Order_Form"
+[btnOpenFolder].Visible = False
 
 End Sub
 
@@ -88,6 +105,7 @@ Private Sub btnNewFixtureOrder_Click()
 
 DoCmd.Close
 DoCmd.OpenForm "Add_CTF_Order"
+[btnOpenFolder].Visible = False
 
 
 End Sub
@@ -112,6 +130,7 @@ DoCmd.SetWarnings False
 [btnNewElementOrder].Visible = False
 [btnNewFixtureOrder].Visible = False
 [arrowImg].Visible = False
+[btnOpenFolder].Visible = False
 
 Set dbs = CurrentDb
 Set rsStock = dbs.OpenRecordset("CTF_open_orders", dbOpenSnapshot)
@@ -120,7 +139,7 @@ name_str = [Forms]![open_orders_form]![txtboxName]
 
     ' Find out what button is selected
     Select Case whatsClicked
-    Case "change-stauts":
+    Case "change-status":
         status_str = [Forms]![open_orders_form]![txtStatus]
         SQL = "UPDATE [CTF_open_orders] SET [CTF_open_orders].Status = '" & status_str & "' WHERE [CTF_open_orders].Customer = '" & name_str & "';"
         DoCmd.RunSQL SQL
@@ -132,6 +151,14 @@ name_str = [Forms]![open_orders_form]![txtboxName]
         DoCmd.RunSQL SQL
         MsgBox name_str & " notes changed to " & status_str
     End Select
+    
+    
+' clear the text boxes
+' getting an error message here bc the textboxes don't have the focus
+' [txtboxName].Text = " "
+' [txtStatus].Text = " "
+' [txtNewNotes].Text = " "
+    
     
 [CTF_open_orders_ALL_ORDERS_query subform].Visible = False
 [btnClose].Visible = False
@@ -145,7 +172,20 @@ name_str = [Forms]![open_orders_form]![txtboxName]
 [btnNewElementOrder].Visible = False
 [btnNewFixtureOrder].Visible = False
 [arrowImg].Visible = False
+[btnOpenFolder].Visible = False
 
+
+End Sub
+
+Private Sub btnOpenFolder_Click()
+' open the selected customer folder
+Dim Customer As String
+Dim full_path As String
+
+Customer = [Forms]![open_orders_form]![txtboxName]
+full_path = "\\zdata\ZData\Sales and Marketing\2019\customers\" & Customer
+
+Call Shell("explorer.exe" & " " & "\\zdata\ZData\Sales and Marketing\2019\customers\" & Customer, vbNormalFocus)
 
 End Sub
 
@@ -158,6 +198,7 @@ Private Sub Command21_Click()
 [btnNewElementOrder].Visible = True
 [btnNewFixtureOrder].Visible = True
 [arrowImg].Visible = True
+[btnOpenFolder].Visible = False
 
 End Sub
 
@@ -176,6 +217,7 @@ Private Sub Command3_Click()
 [btnNewElementOrder].Visible = False
 [btnNewFixtureOrder].Visible = False
 [arrowImg].Visible = False
+[btnOpenFolder].Visible = False
 ' Add another cmd to revert back to OPEN ORDERS
 
 End Sub
@@ -195,5 +237,6 @@ Private Sub Form_Load()
 [btnNewElementOrder].Visible = False
 [btnNewFixtureOrder].Visible = False
 [arrowImg].Visible = False
+[btnOpenFolder].Visible = False
 
 End Sub
