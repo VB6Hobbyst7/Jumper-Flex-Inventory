@@ -96,7 +96,7 @@ Private Sub btnNewElementOrder_Click()
 
 DoCmd.Close
 DoCmd.OpenForm "Add_Element_Order_Form"
-[btnOpenFolder].Visible = False
+' [btnOpenFolder].Visible = False
 
 End Sub
 
@@ -105,7 +105,7 @@ Private Sub btnNewFixtureOrder_Click()
 
 DoCmd.Close
 DoCmd.OpenForm "Add_CTF_Order"
-[btnOpenFolder].Visible = False
+' [btnOpenFolder].Visible = False
 
 
 End Sub
@@ -141,7 +141,7 @@ name_str = [Forms]![open_orders_form]![txtboxName]
     Select Case whatsClicked
     Case "change-status":
         status_str = [Forms]![open_orders_form]![txtStatus]
-        SQL = "UPDATE [CTF_open_orders] SET [CTF_open_orders].Status = '" & status_str & "' WHERE [CTF_open_orders].Customer = '" & name_str & "';"
+        SQL = "UPDATE [CTF_open_orders] SET [CTF_open_orders].Status = '" & status_str & "' WHERE [CTF_open_orders].Status = 'Open' AND [CTF_open_orders].Customer = '" & name_str & "';"
         DoCmd.RunSQL SQL
         ' Confirmation MsgBox
         MsgBox name_str & " status changed to " & status_str
