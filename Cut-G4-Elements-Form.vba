@@ -40,7 +40,7 @@ Set dbs = CurrentDb
 Set rsStock = dbs.OpenRecordset("Cut_G4_Elements", dbOpenSnapshot)
 
 DoCmd.RunSQL "INSERT INTO Cut_G4_Elements (Pitch, Traces, Quantity, Location) VALUES ('" & Pitch & "', '" & traces & "', '" & Quantity & "', '" & Location & "')"
-MsgBox "Added It"
+MsgBox Pitch & " x " & traces & " G4 element added to database"
 
 ' hide everything when complete
 findG4btn.SetFocus
