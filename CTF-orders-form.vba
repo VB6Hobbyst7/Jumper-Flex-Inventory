@@ -13,6 +13,8 @@ whatsClicked = "change-notes"
 [lblNewNotes].Visible = True
 [btnNewUpdate].Visible = True
 [btnOpenFolder].Visible = False
+[runCustSearchQuery].Visible = False
+[CTF_orders_customer_search_query_subform].Visible = False
 
 End Sub
 
@@ -37,7 +39,8 @@ whatsClicked = "change-status"
 [arrowImg].Visible = False
 [btnChangeOrderNotes].Visible = False
 [btnOpenFolder].Visible = False
-
+[runCustSearchQuery].Visible = False
+[CTF_orders_customer_search_query_subform].Visible = False
             
             
 End Sub
@@ -59,18 +62,35 @@ Private Sub btnClose_Click()
 [arrowImg].Visible = False
 [btnChangeOrderNotes].Visible = True
 [btnOpenFolder].Visible = False
+[runCustSearchQuery].Visible = False
+[CTF_orders_customer_search_query_subform].Visible = False
 
 
 End Sub
 
 Private Sub btnCustomerFolder_Click()
 ' open up the customer folders in 'sales and marketing'
-Dim Customer As String
+Dim customer As String
 
 [lblName].Visible = True
 [txtboxName].Visible = True
 [btnOpenFolder].Visible = True
+[runCustSearchQuery].Visible = True
+[CTF_orders_customer_search_query_subform].Visible = False
 
+
+End Sub
+
+Private Sub btnCustSearch_Click()
+' search for a customer and then show the info. on the spreadsheet
+' should prolly be another query that searches for customer and then opens it up
+' on another page or this same one?
+Dim customer As Variant
+
+[txtboxName].Visible = True
+[lblName].Visible = True
+[runCustSearchQuery].Visible = True
+[CTF_orders_customer_search_query_subform].Visible = False
 
 End Sub
 
@@ -86,6 +106,8 @@ Private Sub btnHome_Click()
 [arrowImg].Visible = False
 [txtNewNotes].Visible = False
 [btnOpenFolder].Visible = False
+[runCustSearchQuery].Visible = False
+[CTF_orders_customer_search_query_subform].Visible = False
 
 DoCmd.Close
 DoCmd.OpenForm "Home Page"
@@ -96,6 +118,7 @@ Private Sub btnNewElementOrder_Click()
 
 DoCmd.Close
 DoCmd.OpenForm "Add_Element_Order_Form"
+[CTF_orders_customer_search_query_subform].Visible = False
 ' [btnOpenFolder].Visible = False
 
 End Sub
@@ -131,6 +154,8 @@ DoCmd.SetWarnings False
 [btnNewFixtureOrder].Visible = False
 [arrowImg].Visible = False
 [btnOpenFolder].Visible = False
+[runCustSearchQuery].Visible = False
+[CTF_orders_customer_search_query_subform].Visible = False
 
 Set dbs = CurrentDb
 Set rsStock = dbs.OpenRecordset("CTF_open_orders", dbOpenSnapshot)
@@ -143,7 +168,6 @@ name_str = [Forms]![open_orders_form]![txtboxName]
         status_str = [Forms]![open_orders_form]![txtStatus]
         SQL = "UPDATE [CTF_open_orders] SET [CTF_open_orders].Status = '" & status_str & "' WHERE [CTF_open_orders].Status = 'Open' AND [CTF_open_orders].Customer = '" & name_str & "';"
         DoCmd.RunSQL SQL
-        ' Confirmation MsgBox
         MsgBox name_str & " status changed to " & status_str
     Case "change-notes":
         status_str = [Forms]![open_orders_form]![txtNewNotes]
@@ -179,13 +203,13 @@ End Sub
 
 Private Sub btnOpenFolder_Click()
 ' open the selected customer folder
-Dim Customer As String
+Dim customer As String
 Dim full_path As String
 
-Customer = [Forms]![open_orders_form]![txtboxName]
-full_path = "\\zdata\ZData\Sales and Marketing\2019\customers\" & Customer
+customer = [Forms]![open_orders_form]![txtboxName]
+full_path = "\\zdata\ZData\Sales and Marketing\2019\customers\" & customer
 
-Call Shell("explorer.exe" & " " & "\\zdata\ZData\Sales and Marketing\2019\customers\" & Customer, vbNormalFocus)
+Call Shell("explorer.exe" & " " & "\\zdata\ZData\Sales and Marketing\2019\customers\" & customer, vbNormalFocus)
 
 End Sub
 
@@ -198,7 +222,10 @@ Private Sub Command21_Click()
 [btnNewElementOrder].Visible = True
 [btnNewFixtureOrder].Visible = True
 [arrowImg].Visible = True
+[runCustSearchQuery].Visible = True
 [btnOpenFolder].Visible = False
+[runCustSearchQuery].Visible = False
+[CTF_orders_customer_search_query_subform].Visible = False
 
 End Sub
 
@@ -218,6 +245,8 @@ Private Sub Command3_Click()
 [btnNewFixtureOrder].Visible = False
 [arrowImg].Visible = False
 [btnOpenFolder].Visible = False
+[runCustSearchQuery].Visible = False
+[CTF_orders_customer_search_query_subform].Visible = False
 ' Add another cmd to revert back to OPEN ORDERS
 
 End Sub
@@ -238,5 +267,23 @@ Private Sub Form_Load()
 [btnNewFixtureOrder].Visible = False
 [arrowImg].Visible = False
 [btnOpenFolder].Visible = False
+[runCustSearchQuery].Visible = False
+[CTF_orders_customer_search_query_subform].Visible = False
+
+End Sub
+
+Private Sub runCustSearchQuery_Click()
+
+' show the customer search query
+[CTF_orders_customer_search_query_subform].Visible = True
+
+' hide all the other stuff
+[CTF_open_orders_ALL_ORDERS_query subform].Visible = False
+[CTF_open_orders_Query_subform].Visible = False
+
+' refresh page and show the query
+[Form].Refresh
+
+
 
 End Sub
